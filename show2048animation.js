@@ -18,3 +18,18 @@ function showMoveAnimation(srcX,srcY,dirX,dirY){
     top: getPosTop(dirX,dirY),
     left: getPosLeft(dirX,dirY)}, 200)
 };
+
+function updateScore(score){
+  theScoreCell=$("#score");
+  theScoreCell.text(score);
+  theScoreCell.css('color','orange');
+  theScoreCell.animate({fontSize: '60px'}, 100);
+  theScoreCell.animate({fontSize: '25px'}, 100);
+  setTimeout('updateScoreColor()',200);
+  // theScoreCell.css('color','black');
+};
+
+function updateScoreColor(){
+  theScoreCell=$("#score");
+  theScoreCell.css('color', 'black');
+}

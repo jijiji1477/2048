@@ -55,10 +55,54 @@ function canMoveLeft(board){
   return false;
 }
 
+function canMoveRight(board){
+  for(var i=0;i<4;++i)
+    for(var j=2;j>=0;j--){
+      if(board[i][j+1]==0||board[i][j+1]==board[i][j])
+        return true;
+    }
+
+  return false;
+}
+
+function canMoveUp(board){
+  for(var j=0;j<4;++j)
+    for(var i=1;i<4;++i){
+      if(board[i-1][j]==board[i][j] || board[i-1][j]==0)
+        return true;
+    }
+
+  return false;
+}
+
+function canMoveDown(board){
+  for(var i=2;i>=0;i--)
+    for(var j=0;j<4;j++){
+      if(board[i+1][j]==0 || board[i+1][j]==board[i][j])
+        return true;
+    }
+
+  return false;
+}
+
 function noBlock(board,row,col,curcol){
   for(var i=curcol+1;i<col;++i ){
     if(board[row][i]!=0)
       return false;
   }
   return true;
+}
+
+function noBlockVertical(board,col,rowMin,rowMax){
+  for(var i=rowMin+1;i<rowMax;++i){
+    if(board[i][col]!=0)
+      return false;
+  }
+  return true;
+}
+
+function noMove(board){
+  if(nospace(board) && !canMoveLeft(board) && !canMoveDown(board) && !canMoveUp(board) && !canMoveRight(board))
+    return true;
+  return false;
 }
