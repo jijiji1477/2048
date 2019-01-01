@@ -1,5 +1,6 @@
 var board =new Array();
 var score = 0;
+var hasConfilct=false;
 
 $(document).ready(function(){
   //初始化棋盘
@@ -107,7 +108,7 @@ $(document).keydown(function(event) {
 
     case 39://right
       if(moveRight()){
-        setTimeout("generateOneNumber()",200);      
+        setTimeout("generateOneNumber()",200);
       }
       else {
         isOver();
@@ -132,14 +133,14 @@ function moveLeft(){
     return false;
 
   //moveLeft
-  for(var i=0;i<4;++i)
+  for(var i=0;i<4;++i){
     for(var j=1;j<4;++j){
       /*
         0、判断从第2列一直判断到4列
         1、左侧与当前相等，可以移动，进行加操作
         2、左侧为空，可以移动
       */
-
+      hasConfilct=false;
       if(board[i][j]!=0){
         for(var k=0;k<j;++k){
           if(board[i][k]==0&&noBlock(board,i,j,k))
@@ -160,15 +161,23 @@ function moveLeft(){
             //add score
             score+=board[i][k];
             updateScore(score);
+            hasConfilct=true;
             break;
           }
           else
             continue;
+
+          if(hasConfilct)
+            break;
         }
         setTimeout("updateBoardView()",200);
       }
     }
+    if(hasConfilct)
+      break;
+  }
   return true;
+
 }
 
 function moveRight(){
@@ -177,6 +186,7 @@ function moveRight(){
 
   for(var i=0;i<4;++i)
     for(var j=2;j>=0;--j){
+      hasConfilct
       if(board[i][j]!=0){
         for(var k=3;k>j;--k){
           if(board[i][k]==0 && noBlock(board,i,k,j)){

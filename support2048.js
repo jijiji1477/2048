@@ -106,3 +106,11 @@ function noMove(board){
     return true;
   return false;
 }
+
+function testLeft(board){
+  board[0][0]=2;
+  board[0][1]=2;
+  board[0][2]=4;
+  board[0][3]=8;
+  updateBoardView();
+}
